@@ -1,0 +1,26 @@
+CREATE TABLE `tb_review` (
+  `reviewId` varchar(100) NOT NULL,
+  `userId` varchar(100) NOT NULL,
+  `placeId` varchar(100) NOT NULL,
+  `content` varchar(500) NOT NULL,
+  `attachedPhotoIds` varchar(500) DEFAULT NULL,
+  `reviewMileage` int(11) DEFAULT NULL,
+  `isBonus` varchar(1) DEFAULT 'N',
+  `createDateTime` datetime DEFAULT NULL,
+  `UpdateDateTime` datetime DEFAULT NULL,
+  PRIMARY KEY (`reviewId`,`userId`,`placeId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `tb_review_history` (
+  `reviewId` varchar(100) NOT NULL,
+  `userId` varchar(100) NOT NULL,
+  `placeId` varchar(100) NOT NULL,
+  `seq` int(11) NOT NULL,
+  `action` varchar(45) DEFAULT NULL,
+  `content` varchar(500) DEFAULT NULL,
+  `attachedPhotoIds` varchar(500) DEFAULT NULL,
+  `reviewMileage` int(11) DEFAULT NULL,
+  `createDateTime` datetime DEFAULT NULL,
+  PRIMARY KEY (`reviewId`,`userId`,`placeId`,`seq`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8

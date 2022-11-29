@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.club.mileage.triple.mapper.ReviewMapper">
+	<select id="selectReview" parameterType="com.club.mileage.triple.dto.ReviewDto" resultType="com.club.mileage.triple.dto.ReviewDto">
+		select reviewId
+			,userId 
+			,placeId
+  			,content
+  			,attachedPhotoIds
+  			,reviewMileage
+  			,isBonus
+  		from tb_review
+  		where reviewId = #{reviewId}
+  			and userId = #{userId}
+  			and placeId = #{placeId}
+	</select>
+	
+	<insert id ="insertReview" parameterType="com.club.mileage.triple.dto.ReviewDto" >
+		insert into tb_review (reviewId, userId ,placeId ,content ,attachedPhotoIds ,reviewMileage, isBonus,createDateTime)
+			values (#{reviewId}, #{userId}, #{placeId}, #{content}, #{attachedPhotoIds}, #{reviewMileage}, #{isBonus}, now())
+	</insert>
+	
+	<select id="selectCntPlace" parameterType="com.club.mileage.triple.dto.ReviewDto" resultType="int">
+		select count(*)
+  		from tb_review
+  		where placeId = #{placeId} and isBonus = 'Y'
+	</select>
+	
+	<update id="updateReview" parameterType="com.club.mileage.triple.dto.ReviewDto" >
+		update tb_review set content =#{content}
+				,attachedPhotoIds = #{attachedPhotoIds}
+				,reviewMileage = #{reviewMileage}
+				,isBonus = #{isBonus}
+				,updateDateTime = now()
+			where  reviewId = #{reviewId} and userId =#{userId} and placeId = #{placeId}
+	</update>
+	
+	<delete id="deleteReview" parameterType="com.club.mileage.triple.dto.ReviewDto">
+		delete from tb_review
+		 where  reviewId = #{reviewId} and userId =#{userId} and placeId = #{placeId}
+	</delete>
+	
+	<insert id ="insertReviewHistory" parameterType="com.club.mileage.triple.dto.ReviewDto">
+		insert into tb_review_history (reviewId, userId ,placeId ,action ,content ,attachedPhotoIds ,reviewMileage, createDateTime ,seq)
+			values (#{reviewId}, #{userId}, #{placeId}, #{action}, #{content}, #{attachedPhotoIds}, #{reviewMileage}, now(), #{seq})
+	</insert>
+	
+	<select id="selectUserMileage" parameterType="com.club.mileage.triple.dto.ReviewDto" resultType="com.club.mileage.triple.dto.UserDto">
+		select userId, sum(reviewMileage) as mileage from tb_review
+		where userId = #{userId}
+	</select>
+	
+	<select id="selectHistortSeq" parameterType="com.club.mileage.triple.dto.ReviewDto" resultType="int">
+		select IFNULL(MAX(seq),0) +1  from tb_review_history
+				where reviewId = #{reviewId} and userId =#{userId} and placeId = #{placeId}
+	</select>
+	
+	<select id="selectBonus" parameterType="com.club.mileage.triple.dto.ReviewDto" resultType="int">
+		select count(*) from tb_review
+				where reviewId = #{reviewId} and userId =#{userId} and placeId = #{placeId} and isBonus = 'Y'
+	</select>
+	<select id="selectExistReview" parameterType="com.club.mileage.triple.dto.ReviewDto" resultType="int">
+		select count(*)
+  		from tb_review
+  		where userId = #{userId}
+  			and placeId = #{placeId}
+	</select>
+</mapper>
