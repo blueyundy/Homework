@@ -1,8 +1,11 @@
+* Lombok 사용
+ - ecliipse.ini 파일에 아래 내용 추가
+	-javaagent:{파일경로}\lombok.jar
 
 DB : MySQL57
 
 * 테이블 생성 : 
-	- 리뷰 테이블 
+ - 리뷰 테이블 
 	CREATE TABLE `tb_review` (
 	  `reviewId` varchar(100) NOT NULL,
 	  `userId` varchar(100) NOT NULL,
@@ -16,7 +19,7 @@ DB : MySQL57
 	  PRIMARY KEY (`reviewId`,`userId`,`placeId`)
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
-	- 리뷰 히스토리 테이블
+ - 리뷰 히스토리 테이블
 	CREATE TABLE `tb_review_history` (
 	  `reviewId` varchar(100) NOT NULL,
 	  `userId` varchar(100) NOT NULL,
@@ -32,7 +35,8 @@ DB : MySQL57
 
 
 * 테스트
- - 리뷰 작성 : localhost:8080/events/
+ url : localhost:8080/events/
+ - 리뷰 작성 : 
  	Ex)
  	{
 	"type": "REVIEW",
@@ -45,7 +49,7 @@ DB : MySQL57
 	}
 	
 	
-	-리뷰 수정
+ -리뷰 수정
 	{
 	"type": "REVIEW",
 	"action": "MOV", 
@@ -57,7 +61,7 @@ DB : MySQL57
 	}
 	
 	
-	-리뷰 삭제
+ -리뷰 삭제
 	{
 	"type": "REVIEW",
 	"action": "MOV", 
@@ -68,7 +72,8 @@ DB : MySQL57
 	"placeId": "2e4baf1c-5acb-4efb-a1af-eddada31b00f"
 	}	
  
- - 포인트 조회 API : localhost:8080/mileage/{userId}
+ - 포인트 조회 API 
+  url : localhost:8080/mileage/{userId}
  	
  	Ex) localhost:8080/mileage/3ede0ef2-92b7-4817-a5f3-0c575361f745
  
