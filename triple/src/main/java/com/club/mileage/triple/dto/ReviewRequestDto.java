@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 public class ReviewRequestDto {
 
-	@NotBlank(message = "tpye을 입력해주세요.")
+	@NotBlank(message = "type을 입력해주세요.")
 	private String type;
 	@NotNull(message = "action을 입력해주세요.")
 	private String action;
